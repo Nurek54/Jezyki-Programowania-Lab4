@@ -106,23 +106,23 @@ class FigureManipulation extends JPanel implements MouseListener, MouseMotionLis
 }
 
 public class Zadanie2 {
+    private static void run() {
+        JFrame frame = new JFrame("Zadanie2");
+        frame.setSize(800, 800);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        FigureManipulation figureManipulationPanel = new FigureManipulation();
+        frame.add(figureManipulationPanel);
+
+        // Ustawienie okna na środku ekranu
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - frame.getWidth()) / 2;
+        int y = (screenSize.height - frame.getHeight()) / 2;
+        frame.setLocation(x, y);
+
+        frame.setVisible(true);
+    }
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Zadanie2");
-            frame.setSize(800, 800);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            FigureManipulation figureManipulationPanel = new FigureManipulation();
-            frame.add(figureManipulationPanel);
-
-            // Ustawienie okna na środku ekranu
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (screenSize.width - frame.getWidth()) / 2;
-            int y = (screenSize.height - frame.getHeight()) / 2;
-            frame.setLocation(x, y);
-
-            frame.setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> run());
     }
 }
-
