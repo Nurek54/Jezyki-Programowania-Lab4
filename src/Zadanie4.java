@@ -20,23 +20,30 @@ public class Zadanie4 extends JPanel {
 
     private int squareX = 100;
     private int squareY = 100;
-    private boolean squareSelected = false;
     private boolean squareMoving = false;
     private boolean squareMoveRight = true;
+    private boolean squareMoveDown = true;
 
     private int circleX = 300;
     private int circleY = 100;
-    private boolean circleSelected = false;
     private boolean circleMoving = false;
+    private boolean circleMoveRight = true;
     private boolean circleMoveDown = true;
 
     private int triangleX = 500;
     private int triangleY = 100;
-    private boolean triangleSelected = false;
     private boolean triangleMoving = false;
     private boolean triangleMoveRight = true;
+    private boolean triangleMoveDown = true;
 
     private Timer timer;
+
+    private boolean squareSelected = false;
+    private boolean circleSelected = false;
+    private boolean triangleSelected = false;
+
+    private int destinationX;
+    private int destinationY;
 
     public Zadanie4() {
         setPreferredSize(new Dimension(1920, 1080));
@@ -117,36 +124,52 @@ public class Zadanie4 extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if (!squareSelected && e.getX() >= squareX && e.getX() <= squareX + SQUARE_SIZE &&
                     e.getY() >= squareY && e.getY() <= squareY + SQUARE_SIZE) {
-                squareSelected = true;
-            } else if (squareSelected && !squareMoving) {
-                squareMoving = true;
-                squareMoveRight = !squareMoveRight;
-            } else {
-                squareSelected = false;
-                squareMoving = false;
-            }
-
-            if (!circleSelected && e.getX() >= circleX && e.getX() <= circleX + CIRCLE_SIZE &&
+                if (squareMoving) {
+                    squareMoving = false;
+                } else {
+                    squareSelected = true;
+                    circleSelected = false;
+                    triangleSelected = false;
+                }
+            } else if (!circleSelected && e.getX() >= circleX && e.getX() <= circleX + CIRCLE_SIZE &&
                     e.getY() >= circleY && e.getY() <= circleY + CIRCLE_SIZE) {
-                circleSelected = true;
-            } else if (circleSelected && !circleMoving) {
-                circleMoving = true;
-                circleMoveDown = !circleMoveDown;
+                if (circleMoving) {
+                    circleMoving = false;
+                } else {
+                    squareSelected = false;
+                    circleSelected = true;
+                    triangleSelected = false;
+                }
+            } else if (!triangleSelected && e.getX() >= triangleX && e.getX() <= triangleX + TRIANGLE_SIZE &&
+                    e.getY() >= triangleY - TRIANGLE_SIZE && e.getY() <= triangleY) {
+                if (triangleMoving) {
+                    triangleMoving = false;
+                } else {
+                    squareSelected = false;
+                    circleSelected = false;
+                    triangleSelected = true;
+                }
             } else {
-                circleSelected = false;
-                circleMoving = false;
+                if (squareSelected) {
+                    squareSelected = false;
+                    squareMoving = true;
+                    squareMoveRight = destinationX < e.getX();
+                    squareMoveDown = destinationY < e.getY();
+                } else if (circleSelected) {
+                    circleSelected = false;
+                    circleMoving = true;
+                    circleMoveRight = destinationX < e.getX();
+                    circleMoveDown = destinationY < e.getY();
+                } else if (triangleSelected) {
+                    triangleSelected = false;
+                    triangleMoving = true;
+                    triangleMoveRight = destinationX < e.getX();
+                    triangleMoveDown = destinationY < e.getY();
+                }
             }
 
-            if (!triangleSelected && e.getX() >= triangleX && e.getX() <= triangleX + TRIANGLE_SIZE &&
-                    e.getY() >= triangleY - TRIANGLE_SIZE && e.getY() <= triangleY) {
-                triangleSelected = true;
-            } else if (triangleSelected && !triangleMoving) {
-                triangleMoving = true;
-                triangleMoveRight = !triangleMoveRight;
-            } else {
-                triangleSelected = false;
-                triangleMoving = false;
-            }
+            destinationX = e.getX();
+            destinationY = e.getY();
         }
     }
 
