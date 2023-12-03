@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /*Treść zadania:
 Stwórz interfejs z obszarem rysowania (np. JPanel) i narysuj kilka prostych figur.
@@ -13,75 +16,83 @@ Po kliknięciu na figurę, przesuwaj ją w prawo lub w dół, w zależności od 
 zmieniając jej położenie za pomocą timer'a (np. javax.swing.Timer).
  */
 
-interface DrawingArea {
+//    NIE DZIAŁA POPRAWNIE !!!
+
+/*interface DrawingArea {
     void draw(Graphics g);
 }
 
-class Square implements DrawingArea {
-    private int x, y, size;
+class Figure implements DrawingArea {
+    public Shape shape;
+    private Color color;
 
-    public Square(int x, int y, int size) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
+    public Figure(Shape shape, Color color) {
+        this.shape = shape;
+        this.color = color;
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, size, size);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(color);
+        g2d.draw(shape);
+        g2d.fill(shape);
     }
 
-    public void moveRight() {
-        x += 10;
-        if (x > 300) {
-            // Przesunięcie za granicę, zaczynamy od nowa
-            x = 0;
-        }
-    }
-
-    public void moveDown() {
-        y += 10;
-        if (y > 300) {
-            // Przesunięcie za granicę, zaczynamy od nowa
-            y = 0;
+    public void move(int targetX, int targetY) {
+        if (shape instanceof Rectangle2D) {
+            Rectangle2D rectangle = (Rectangle2D) shape;
+            double dx = targetX - rectangle.getX();
+            double dy = targetY - rectangle.getY();
+            rectangle.setRect(targetX, targetY, rectangle.getWidth(), rectangle.getHeight());
         }
     }
 
     public boolean containsPoint(int mouseX, int mouseY) {
-        return mouseX >= x && mouseX <= x + size && mouseY >= y && mouseY <= y + size;
+        return shape.contains(mouseX, mouseY);
     }
 }
 
 class DrawingPanel extends JPanel implements MouseListener, ActionListener {
-    private Square square;
+    private List<Figure> figures;
+    private Figure currentFigure;
     private Timer timer;
 
     public DrawingPanel() {
-        square = new Square(50, 50, 50);
+        figures = new ArrayList<>();
         timer = new Timer(50, this);
         addMouseListener(this);
-        timer.start();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        square.draw(g);
+        for (Figure figure : figures) {
+            figure.draw(g);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (square.containsPoint(e.getX(), e.getY())) {
-            // Kliknięcie na kwadrat, zaczynamy przesuwanie
-            timer.restart();
+        if (currentFigure == null) {
+            // Kliknięcie myszą bez zaznaczonej figury, tworzymy nową
+            currentFigure = new Figure(new Rectangle2D.Double(e.getX(), e.getY(), 50, 50), Color.BLUE);
+            repaint();
+        } else {
+            // Kliknięcie myszą z zaznaczoną figurą, ustawiamy jej nową pozycję
+            currentFigure.move(e.getX(), e.getY());
+            figures.add(currentFigure);
+            currentFigure = null;
+            timer.start();
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        square.moveRight();
-        square.moveDown();
+        // Przesuwanie figury w dół co 50 ms
+        for (Figure figure : figures) {
+            figure.move((int) figure.shape.getBounds2D().getX(), (int) figure.shape.getBounds2D().getY() + 5);
+        }
         repaint();
     }
 
@@ -114,3 +125,4 @@ public class Zadanie4 {
         });
     }
 }
+*/
