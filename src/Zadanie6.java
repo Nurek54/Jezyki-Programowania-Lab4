@@ -10,10 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/*Treść zadania:
+Opracuj interfejs z obszarem rysowania (np. JPanel). Dodaj obsługę zdarzeń klawiatury tak, aby:
+
+Po naciśnięciu klawisza, zmieniał się kształt lub kolor figury na obszarze rysowania.
+Po zwolnieniu klawisza, powracał do poprzedniego kształtu lub koloru.
+Po użyciu klawiszy specjalnych, np. Shift lub Ctrl, zmieniały się inne właściwości wybranej figury.
+ */
+
 public class Zadanie6 extends JFrame {
 
     private Color currentColor = Color.BLACK;
-    private int shapeType = 0; // 0 - rectangle, 1 - oval, 2 - triangle
+    private int shapeType = 0; // 0 - kwadrat, 1 - koło, 2 - trójkąt
     private int size = 100;
 
     public Zadanie6() {
@@ -26,7 +34,7 @@ public class Zadanie6 extends JFrame {
         add(drawingPanel);
 
         pack();
-        setLocationRelativeTo(null); // Ustaw panel na środku ekranu
+        setLocationRelativeTo(null);
 
         addMouseListener(new MyMouseListener());
         addKeyListener(new MyKeyListener());
