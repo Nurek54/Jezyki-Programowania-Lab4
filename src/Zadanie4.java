@@ -174,7 +174,7 @@ public class Zadanie4 extends JPanel {
     }
 
     public void run() {
-        JFrame frame = new JFrame("Moving Shapes");
+        JFrame frame = new JFrame("Zadanie4");
         frame.add(this);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

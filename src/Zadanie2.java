@@ -106,7 +106,7 @@ class FigureManipulation extends JPanel implements MouseListener, MouseMotionLis
 }
 
 public class Zadanie2 {
-    private static void run() {
+    private void run() {
         JFrame frame = new JFrame("Zadanie2");
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,7 +122,11 @@ public class Zadanie2 {
 
         frame.setVisible(true);
     }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> run());
+        SwingUtilities.invokeLater(() -> {
+            Zadanie2 zadanie = new Zadanie2();
+            zadanie.run();
+        });
     }
 }
