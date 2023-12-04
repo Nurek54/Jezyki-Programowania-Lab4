@@ -43,9 +43,9 @@ class FigureManipulation extends JPanel implements MouseListener, MouseMotionLis
 
     private void setShapeColor(Graphics2D g2d, Shape shape) {
         if (shape instanceof Rectangle2D) {
-            g2d.setColor(Color.RED);
+            g2d.setColor(Color.GREEN);
         } else if (shape instanceof Ellipse2D) {
-            g2d.setColor(Color.BLUE);
+            g2d.setColor(Color.PINK);
         }
     }
 
