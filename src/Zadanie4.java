@@ -14,8 +14,8 @@ zmieniając jej położenie za pomocą timer'a (np. javax.swing.Timer).
 
 public class Zadanie4 extends JPanel {
 
-    private static final int SQUARE_SIZE = 80;
-    private static final int CIRCLE_SIZE = 80;
+    private static final int SQUARE_SIZE = 100;
+    private static final int CIRCLE_SIZE = 90;
     private static final int TRIANGLE_SIZE = 80;
 
     private int squareX = 100;
@@ -24,14 +24,14 @@ public class Zadanie4 extends JPanel {
     private boolean squareMoveRight = true;
     private boolean squareMoveDown = true;
 
-    private int circleX = 300;
-    private int circleY = 100;
+    private int circleX = 550;
+    private int circleY = 450;
     private boolean circleMoving = false;
     private boolean circleMoveRight = true;
     private boolean circleMoveDown = true;
 
-    private int triangleX = 500;
-    private int triangleY = 100;
+    private int triangleX = 1000;
+    private int triangleY = 120;
     private boolean triangleMoving = false;
     private boolean triangleMoveRight = true;
     private boolean triangleMoveDown = true;
@@ -63,15 +63,15 @@ public class Zadanie4 extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.RED);
-        g.fillRect(squareX, squareY, SQUARE_SIZE, SQUARE_SIZE);
-
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.BLUE);
         g.fillOval(circleX, circleY, CIRCLE_SIZE, CIRCLE_SIZE);
+
+        g.setColor(Color.GREEN);
+        g.fillRect(squareX, squareY, SQUARE_SIZE, SQUARE_SIZE);
 
         int[] xPoints = {triangleX, triangleX + TRIANGLE_SIZE, triangleX + TRIANGLE_SIZE / 2};
         int[] yPoints = {triangleY, triangleY, triangleY - TRIANGLE_SIZE};
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.PINK);
         g.fillPolygon(xPoints, yPoints, 3);
     }
 
